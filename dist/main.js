@@ -1,0 +1,1 @@
+(()=>{"use strict";document.getElementById("root").innerHTML="<h1>나는 수여니</h1>3"})();
