@@ -1,4 +1,5 @@
 import { hello, add } from "./util";
+import "@babel/polyfill";
 import "./style.css";
 import "./header.css";
 import logo from "./images/1.jpg";
