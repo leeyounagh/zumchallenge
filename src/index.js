@@ -47,7 +47,13 @@ class App extends Component {
     </div>
    
     <ul>
-          ${items.map((item) => `<li >${item}</li>`).join("")}
+          ${items
+            .map(
+              (item, key) =>
+                `<li >${item}  <button id="delete" data-index="${key}">삭제</button></li>`
+            )
+            .join("")}
+        
         </ul>
         <div class="submit">
         <button id="submit">추가</button>
@@ -58,10 +64,19 @@ class App extends Component {
 
   setEvent() {
     let inputValue = "";
-    this.target.querySelector("#list").addEventListener("input", (event) => {
-      inputValue = event.target.value;
-    });
+    this.target
+      .querySelector("#list")
+      .addEventListener("input", ({ target }) => {
+        inputValue = target.value;
+      });
 
+    this.target.querySelectorAll("#delete").forEach((deleteBtn) =>
+      deleteBtn.addEventListener("click", ({ target }) => {
+        const items = [...this.state.items];
+        items.splice(target.dataset.index, 1);
+        this.setState({ items });
+      })
+    );
     this.target.querySelector("#submit").addEventListener("click", () => {
       const { items } = this.state;
       this.setState({ items: [...items, inputValue] }); // inputValue 변수를 배열에 추가하고
