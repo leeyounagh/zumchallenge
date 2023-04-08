@@ -7,51 +7,15 @@ import logo from "./images/1.jpg";
 // const num = add(1, 2);
 // const img = `<img src="${logo}" alt="수연쓰"/>`;
 
-class Component {
-  $target;
-  state;
-  constructor($target) {
-    this.$target = $target;
-    this.setup();
-    this.render();
-  }
-  setup() {}
-  template() {
-    return "";
-  }
-  render() {
-    this.$target.innerHTML = this.template();
-    this.setEvent();
-  }
-  setEvent() {}
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.render();
+import Items from "./components/Items.js";
+
+class App {
+  constructor() {
+    const $app = document.querySelector("#root");
+    new Items($app);
   }
 }
 
-class App extends Component {
-  setup() {
-    this.state = { items: ["item1", "item2"] };
-  }
-  template() {
-    const { items } = this.state;
-    return `
-          <ul>
-            ${items.map((item) => `<li>${item}</li>`).join("")}
-          </ul>
-          <button>추가</button>
-      `;
-  }
-
-  setEvent() {
-    this.$target.querySelector("button").addEventListener("click", () => {
-      const { items } = this.state;
-      this.setState({ items: [...items, `item${items.length + 1}`] });
-    });
-  }
-}
-
-new App(document.querySelector("#root"));
+new App();
 
 // document.getElementById("root").innerHTML = img + text + num;
