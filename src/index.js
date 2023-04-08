@@ -1,4 +1,3 @@
-import { hello, add } from "./util";
 import "@babel/polyfill";
 import "./style.css";
 import "./header.css";
@@ -42,23 +41,29 @@ class App extends Component {
   template() {
     const { items } = this.state;
     return `
-     <input id="list"></input>
+    <h1>To do List</h1>
+    <div class="input">
+    <input id="list"></input>
+    </div>
+   
     <ul>
           ${items.map((item) => `<li >${item}</li>`).join("")}
         </ul>
-        <button>추가</button>
+        <div class="submit">
+        <button id="submit">추가</button>
+        </div>
+       
     `;
   }
 
   setEvent() {
     let inputValue = "";
-    this.target.querySelector("input").addEventListener("input", (event) => {
+    this.target.querySelector("#list").addEventListener("input", (event) => {
       inputValue = event.target.value;
     });
 
-    this.target.querySelector("button").addEventListener("click", () => {
+    this.target.querySelector("#submit").addEventListener("click", () => {
       const { items } = this.state;
-      console.log(inputValue);
       this.setState({ items: [...items, inputValue] }); // inputValue 변수를 배열에 추가하고
       inputValue = ""; // 변수 초기화
     });
