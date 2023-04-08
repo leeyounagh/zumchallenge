@@ -8,9 +8,18 @@ export default class Items extends Component {
     const { items } = this.state;
     return `
       <ul>
-        ${items.map((item) => `<li>${item}</li>`).join("")}
+        ${items
+          .map(
+            (item, key) => `
+          <li>
+            ${item}
+            <button class="deleteBtn" data-index="${key}">삭제</button>
+          </li>
+        `
+          )
+          .join("")}
       </ul>
-      <button>추가</button>
+      <button class="addBtn">추가</button>
     `;
   }
 
@@ -19,5 +28,13 @@ export default class Items extends Component {
       const { items } = this.state;
       this.setState({ items: [...items, `item${items.length + 1}`] });
     });
+    // 여기서 핵심은 state가 바뀔때마다 렌더링이 일어나는것이다.
+    this.$target.querySelectorAll(".deleteBtn").forEach((deleteBtn) =>
+      deleteBtn.addEventListener("click", ({ target }) => {
+        const items = [...this.state.items];
+        items.splice(target.dataset.index, 1);
+        this.setState({ items });
+      })
+    );
   }
 }
